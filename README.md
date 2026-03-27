@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Claw Station
 
-## Getting Started
+Next.js + Tailwind implementation of the **Home Page** from Figma ([Open-Claw](https://www.figma.com/design/6fBoVyJUAD6GmZ3o6GqtKE/Open-Claw?node-id=35-1370)).
 
-First, run the development server:
+## Commands
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open **http://localhost:3000** (or the port shown in the terminal).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+If you see **HTTP 500** or “Internal Server Error”, stop all dev servers, clear the Next cache, and start again:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run clean
+npm run dev
+```
 
-## Learn More
+Do not run multiple `npm run dev` instances for this project at the same time (they fight over the `.next` folder).
 
-To learn more about Next.js, take a look at the following resources:
+### Page still not loading?
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Use the exact folder** that contains this `package.json` (the project root), not a parent folder.
+2. **Match the port** in the browser to what the terminal prints (e.g. if it says “Port 3000 is in use … 3001”, open **http://localhost:3001**).
+3. **Try** `http://127.0.0.1:3000` instead of `http://localhost:3000` if something else is intercepting `localhost`.
+4. **`npm start`** only works after a successful **`npm run build`**. For local development, prefer **`npm run dev`**.
+5. **Verify the server responds:** with dev or start running, open **http://localhost:3000/api/health** — you should see `{"ok":true,...}`. If that fails, the Next server is not running or the URL/port is wrong.
+6. **Kill stray Node processes** if ports are stuck: quit other terminals running `next dev`, then `npm run clean` and `npm run dev` again.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Figma assets
 
-## Deploy on Vercel
+Icons and raster layers are loaded from Figma MCP asset URLs (see `lib/figma/homeAssets.ts`). Those URLs are temporary (~7 days). For production, download them into `public/` and update the constants.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Routing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project uses the **Next.js App Router** only (`app/`). Shared chrome (sidebar, top bar, footer) is provided once via **`app/layout.tsx`** wrapping **`HomeShell`**.
+
+## Routes
+
+| Path | Purpose |
+|------|---------|
+| `/` | Homepage (command input) |
+| `/stations` | Stations grid (Figma) |
+| `/workspace` | Workspace; accepts `?q=`; shows selected station from store when set |
+| `/agents`, `/create-station` | Placeholder content |
+| `/reports`, `/activity`, `/settings`, `/support` | Minimal placeholders |
