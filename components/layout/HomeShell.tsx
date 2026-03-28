@@ -2,6 +2,7 @@
 
 import { useCallback, useState } from "react";
 import { FooterMicroData } from "@/components/home/FooterMicroData";
+import { LoginModal } from "@/components/layout/LoginModal";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Topbar } from "@/components/layout/Topbar";
 
@@ -11,8 +12,17 @@ type HomeShellProps = {
 
 export function HomeShell({ children }: HomeShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
   const closeSidebar = useCallback(() => setSidebarOpen(false), []);
+
+  const handleLogin = useCallback(() => {
+    setIsAuthenticated(true);
+    setShowLoginModal(false);
+  }, []);
 
   return (
     <div className="relative min-h-screen w-full bg-[#0b0b0b]" data-name="App shell">
@@ -46,9 +56,24 @@ export function HomeShell({ children }: HomeShellProps) {
         />
       ) : null}
 
-      <Topbar onMenuClick={() => setSidebarOpen(true)} />
+      <Topbar
+        isAuthenticated={isAuthenticated}
+        onLoginClick={() => setShowLoginModal(true)}
+        onMenuClick={() => setSidebarOpen(true)}
+      />
       <FooterMicroData />
       <Sidebar mobileOpen={sidebarOpen} onNavigate={closeSidebar} />
+
+      {showLoginModal ? (
+        <LoginModal
+          email={loginEmail}
+          password={loginPassword}
+          onClose={() => setShowLoginModal(false)}
+          onEmailChange={setLoginEmail}
+          onLogin={handleLogin}
+          onPasswordChange={setLoginPassword}
+        />
+      ) : null}
     </div>
   );
 }

@@ -49,3 +49,19 @@ body {
 .status-dot-pulse {
   animation: status-dot-pulse 2.2s ease-in-out infinite;
 }
+
+/* Agents / Swarm page — ring + hover (Figma 140:885); `.agent` wraps circular avatar */
+.agent {
+  transition-property: transform, box-shadow;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in-out;
+}
+
+.agent:hover {
+  transform: scale(1.05);
+}
+
+.agent.active {
+  transform: scale(1.03);
+  box-shadow: 0 0 0 2px rgba(255, 84, 74, 0.35), 0 0 24px rgba(255, 45, 45, 0.25);
+}

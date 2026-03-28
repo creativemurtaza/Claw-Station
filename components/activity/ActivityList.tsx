@@ -4,12 +4,7 @@ import type { FormEvent, MouseEvent } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { ActivityItem, type ActivityItemData } from "@/components/activity/ActivityItem";
-
-/** Figma Activity page assets (node 74:1350) — same host as other MCP exports */
-const IMG_CLAW_BG = "https://www.figma.com/api/mcp/asset/a81e8af8-afce-4280-aca4-53d59414b7ab";
-const AVATAR_CODY = "https://www.figma.com/api/mcp/asset/3229f1dc-59cd-48c8-bc69-b97cf1f01137";
-const AVATAR_PUFFY = "https://www.figma.com/api/mcp/asset/5e88d30e-5382-4340-ad89-8cfe36d01ea8";
-const AVATAR_VECTOR = "https://www.figma.com/api/mcp/asset/ad62504e-2ca8-4954-bfe6-6e7e8487933c";
+import { activityAssets } from "@/lib/figma/activityAssets";
 
 const INITIAL_ITEMS: ActivityItemData[] = [
   {
@@ -19,7 +14,7 @@ const INITIAL_ITEMS: ActivityItemData[] = [
     insight: "BTCY volume increased by 12% in last 2 hours",
     status: "running",
     time: "Just now",
-    avatarUrl: AVATAR_CODY,
+    avatarUrl: activityAssets.avatarCody,
     steps: ["Scan order books across venues", "Correlate volume with institutional tags", "Draft summary for operator review"],
     reasoning: "Volume uptick aligns with institutional flow from sector relays; watch for sustained depth above prior range.",
   },
@@ -30,7 +25,7 @@ const INITIAL_ITEMS: ActivityItemData[] = [
     insight: "Identified 15 high-potential target segments",
     status: "completed",
     time: "2 min ago",
-    avatarUrl: AVATAR_PUFFY,
+    avatarUrl: activityAssets.avatarPuffy,
     steps: ["Segment cohorts", "Score engagement potential", "Outline growth loops"],
     reasoning: "High-potential segments cluster around repeatable rituals and contributor-led onboarding paths.",
   },
@@ -41,7 +36,7 @@ const INITIAL_ITEMS: ActivityItemData[] = [
     insight: "Rebalancing assets across 4 active chains",
     status: "running",
     time: "5 min ago",
-    avatarUrl: AVATAR_VECTOR,
+    avatarUrl: activityAssets.avatarVector,
     steps: ["Measure pool depth", "Simulate rebalance paths", "Apply safe slippage bounds"],
     reasoning: "Cross-chain liquidity is skewed; staged rebalancing reduces tail risk while preserving throughput.",
   },
@@ -148,7 +143,7 @@ export function ActivityList() {
           fill
           priority
           sizes="100vw"
-          src={IMG_CLAW_BG}
+          src={activityAssets.clawBg}
           unoptimized
         />
       </div>

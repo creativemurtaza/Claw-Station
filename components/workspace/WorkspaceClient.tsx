@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
+import { workspaceAssets } from "@/lib/figma/workspaceAssets";
 import { useStationStore } from "@/lib/stores/stationStore";
 
 type SwarmStatus = "running" | "waiting";
@@ -15,13 +16,6 @@ type Swarm = {
   subtext: string;
   avatar: string;
 };
-
-const workspaceAssets = {
-  panelBg: "https://www.figma.com/api/mcp/asset/d4db9d2c-565b-409f-9409-b180c838b8b6",
-  puffy: "https://www.figma.com/api/mcp/asset/99db7435-061a-4a8e-aaee-b530f9e0162c",
-  cody: "https://www.figma.com/api/mcp/asset/a65b948f-df6f-431b-bcca-13cace075e65",
-  blaze: "https://www.figma.com/api/mcp/asset/b35001ed-a0a3-4f91-8a01-40c09ff454b8",
-} as const;
 
 const SWARMS: Swarm[] = [
   {
